@@ -73,3 +73,21 @@ Implemented k-fold cross-validation to:
 - Evaluate model performance through RMSE
 - Compare the variance of parameters in OLS vs Ridge
 - Select the optimal regularisation parameter λ
+
+This project began with implementing classical machine learning models from scratch as a stepping stone toward deep learning and transformer-based architectures.
+
+So far, I have developed an understanding of:
+
+- Linear regression as a geometric projection onto the column space of features
+- The role of the closed-form OLS solution and why it can become unstable under ill-conditioning
+- How gradient descent provides an iterative alternative to analytic solutions
+- Why feature standardisation is important for numerical stability
+- How ridge regression reduces variance 
+- How cross-validation can be used to evaluate generalisation and find optimal hyperparameters
+
+Next steps:
+
+Logistic regression
+Multi-layer perceptrons (MLPs) and backpropagation
+Deep neural networks
+Attention mechanisms and transformer architectures
