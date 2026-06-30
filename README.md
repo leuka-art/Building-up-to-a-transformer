@@ -24,7 +24,7 @@ Preprocessing:
 
 Models Implemented
 
-X is the data matrix with each row being a set of input data. y is the number of rings for the corresponding features. For OLS X has a 1s
+X is the data matrix with each row being a set of input data. The data is standardised. y is the number of rings for the corresponding features. For OLS X has a 1s
 column on the left.
 
 Ordinary Least Squares
