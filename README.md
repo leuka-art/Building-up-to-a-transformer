@@ -27,7 +27,7 @@ Models Implemented
 X is the data matrix with each row being a set of input data. y is the number of rings for the corresponding features. For OLS X has a 1s
 column on the left.
 
-Ordinary Least Squares (OLS)
+Ordinary Least Squares
 
 Closed-form solution:
 \[
@@ -44,9 +44,8 @@ Goal is to minimise the residual sum of squares:
 \min_w \|y - Xw\|^2
 \]
 
-- Iterative optimisation approach
-- Converges to the closed-form solution
-- Tracks RSS over iterations to verify convergence
+- Gradient descent done through a for loop
+- RSS tracked over iterations and plotted against iteration to verify convergence
 
 3. Ridge Regression
 
@@ -69,6 +68,6 @@ Cross-Validation
 
 Implemented k-fold cross-validation to:
 
-- Evaluate model performance
-- Compare OLS vs Ridge
-- Select optimal regularisation parameter λ
+- Evaluate model performance through RMSE
+- Compare the variance of parameters in OLS vs Ridge
+- Select the optimal regularisation parameter λ
