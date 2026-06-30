@@ -34,7 +34,7 @@ Closed-form solution:
 beta = (X^T X)^{-1} X^T y
 \]
 - X^TX may not be invertible for multicolinear data in which case a unique solution doesn't exist. In the case of small singular values,
-  the condition number may become large and hence the matrix is ill-conditioned resulting in instability of matrix
+  the condition number may become large and hence the matrix is ill-conditioned resulting in high variance of the parameters.
 
 Gradient Descent Linear Regression
 
