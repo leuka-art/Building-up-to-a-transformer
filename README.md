@@ -8,7 +8,7 @@ My aims for this project were to understand these techniques as well as:
 - Why closed-form solutions can become unstable (ill-conditioning)
 - How gradient descent converges to the same solution
 - How ridge regression stabilises solutions under multicollinearity
-- How cross-validation selects hyperparameters like λ
+- How cross-validation can be used to find optimal parameters (lambda in this case for ridge regression)
 
 Dataset
 
@@ -20,7 +20,7 @@ Features:
 
 Preprocessing:
 - Z-score normalisation applied to features
-- Gender encoded as numeric values
+- Gender encoded as numeric values: male=1, infant=0, female=-1
 
 Models Implemented
 
@@ -28,6 +28,8 @@ X is the data matrix with each row being a set of input data. y is the number of
 column on the left.
 
 Ordinary Least Squares
+
+We minimise the squared error between prediction and actual values (RSS).
 
 Closed-form solution:
 \[
