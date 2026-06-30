@@ -49,9 +49,9 @@ Goal is to minimise the residual sum of squares:
 - Gradient descent done through a for loop
 - RSS tracked over iterations and plotted against iteration to verify convergence
 
-3. Ridge Regression
+Ridge Regression
 
-Regularised objective:
+We aim to minimise the following:
 
 \[
 \min_w \|y - Xw\|^2 + \lambda \|w\|^2
