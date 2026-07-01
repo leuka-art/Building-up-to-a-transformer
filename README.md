@@ -89,5 +89,4 @@ Next steps:
 
 - Logistic regression
 - Multi-layer perceptrons (MLPs)
-- Deep neural networks
 - Attention mechanisms and transformer architectures
