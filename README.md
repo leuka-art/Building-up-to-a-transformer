@@ -87,7 +87,7 @@ So far, I have developed an understanding of:
 
 Next steps:
 
-Logistic regression
-Multi-layer perceptrons (MLPs) and backpropagation
-Deep neural networks
-Attention mechanisms and transformer architectures
+- Logistic regression
+- Multi-layer perceptrons (MLPs)
+- Deep neural networks
+- Attention mechanisms and transformer architectures
