@@ -8,7 +8,7 @@ My aims for this project were to understand these techniques as well as:
 - Why closed-form solutions can become unstable (ill-conditioning)
 - How gradient descent converges to the same solution
 - How ridge regression stabilises solutions under multicollinearity
-- How cross-validation selects hyperparameters like λ
+- How cross-validation can be used to find optimal parameters (lambda in this case for ridge regression)
 
 Dataset
 
@@ -20,21 +20,23 @@ Features:
 
 Preprocessing:
 - Z-score normalisation applied to features
-- Gender encoded as numeric values
+- Gender encoded as numeric values: male=1, infant=0, female=-1
 
 Models Implemented
 
-X is the data matrix with each row being a set of input data. y is the number of rings for the corresponding features. For OLS X has a 1s
+X is the data matrix with each row being a set of input data. The data is standardised. y is the number of rings for the corresponding features. For OLS X has a 1s
 column on the left.
 
-Ordinary Least Squares (OLS)
+Ordinary Least Squares
+
+We minimise the squared error between prediction and actual values (RSS).
 
 Closed-form solution:
 \[
 beta = (X^T X)^{-1} X^T y
 \]
 - X^TX may not be invertible for multicolinear data in which case a unique solution doesn't exist. In the case of small singular values,
-  the condition number may become large and hence the matrix is ill-conditioned resulting in instability of matrix
+  the condition number may become large and hence the matrix is ill-conditioned resulting in high variance of the parameters.
 
 Gradient Descent Linear Regression
 
@@ -44,13 +46,12 @@ Goal is to minimise the residual sum of squares:
 \min_w \|y - Xw\|^2
 \]
 
-- Iterative optimisation approach
-- Converges to the closed-form solution
-- Tracks RSS over iterations to verify convergence
+- Gradient descent done through a for loop
+- RSS tracked over iterations and plotted against iteration to verify convergence
 
-3. Ridge Regression
+Ridge Regression
 
-Regularised objective:
+We aim to minimise the following:
 
 \[
 \min_w \|y - Xw\|^2 + \lambda \|w\|^2
@@ -69,6 +70,23 @@ Cross-Validation
 
 Implemented k-fold cross-validation to:
 
-- Evaluate model performance
-- Compare OLS vs Ridge
-- Select optimal regularisation parameter λ
+- Evaluate model performance through RMSE
+- Compare the variance of parameters in OLS vs Ridge
+- Select the optimal regularisation parameter λ
+
+This project began with implementing classical machine learning models from scratch as a stepping stone toward deep learning and transformer-based architectures.
+
+So far, I have developed an understanding of:
+
+- Linear regression as a geometric projection onto the column space of features
+- The role of the closed-form OLS solution and why it can become unstable under ill-conditioning
+- How gradient descent provides an iterative alternative to analytic solutions
+- Why feature standardisation is important for numerical stability
+- How ridge regression reduces variance 
+- How cross-validation can be used to evaluate generalisation and find optimal hyperparameters
+
+Next steps:
+
+- Logistic regression
+- Multi-layer perceptrons (MLPs)
+- Attention mechanisms and transformer architectures
