@@ -26,15 +26,13 @@ Logistic Regression:
 
 I implemented multiclass logistic regression from first principles using numpy. Logistic regression builds on top of linear models by using softmax as well as an example of a model with no closed form solution, hence the use of gradient descent.
 
-The objective was to understand how multiclass classification works mathematically by implementing each component manually, including the forward pass, softmax activation, cross-entropy loss and gradient descent optimisation.
+The objective was to understand how multiclass classification works mathematically by implementing each component manually, including the forward pass, softmax, cross entropy loss and gradient descent optimisation.
 
 I built and discussed the following:
-- Multiclass logistic regression
-- Vectorised implementation using NumPy
+- Multiclass logistic regression trained using gradient descent
+- Vectorised implementation in NumPy
 - Numerically stable softmax
 - Cross-entropy loss
-- Gradient descent optimisation
-- One-hot encoded labels
 - Training loss visualisation
 - Classification accuracy evaluation
 
