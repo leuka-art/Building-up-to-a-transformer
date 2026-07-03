@@ -2,7 +2,7 @@ This project is a growing project where I build up to a transformer from scratch
 
 Linear Regression:
 
-I implemented linear regression using numpy
+I implemented linear regression using numpy. Linear models are the foundations of multi-perceptron neural networks; I wanted to explore an analytical view on linear regression.
 
 I built and discussed the following:
 - Least squares regression using closed-form solution and gradient descent optimisation
@@ -24,7 +24,7 @@ I learned:
 
 Logistic Regression:
 
-I implemented multiclass logistic regression from first principles using numpy.
+I implemented multiclass logistic regression from first principles using numpy. Logistic regression builds on top of linear models by using softmax as well as an example of a model with no closed form solution, hence the use of gradient descent.
 
 The objective was to understand how multiclass classification works mathematically by implementing each component manually, including the forward pass, softmax activation, cross-entropy loss and gradient descent optimisation.
 
