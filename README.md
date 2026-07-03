@@ -18,7 +18,7 @@ Gender was coded as such: M=Male -> 1, I=Infant -> 0, F=Female -> -1.
 
 I learned:
 - How the closed-form solution arises in multi linear regression as well as the geometric intuition of the solution
-- Ridge regressions utility in reducing variance of coefficients and hence helping the model generalise better.
+- Ridge regressions utility in reducing variance of parameters and hence helping the model generalise better.
 - How colinearity of data can theoretically affect results and your solution
 - How cross-validation can be used when presented with limited training data
 
