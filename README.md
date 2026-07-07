@@ -48,3 +48,21 @@ I learned:
 - Derivation of the cross-entropy gradient
 - The role of numerical stability in softmax implementations
 - Differences between linear regression and logistic regression optimisation
+
+Multi Layer Perceptron (MLP):
+
+I implemented an MLP, building the architecture from scratch. I used PyTorch tensors for convenience of autograd but the fundamnetal structure was coded by myself.
+
+I implemented:
+- Linear class which has its parameters
+- ReLU class which is the activation function
+- MLP using a sequential class which takes as input a list of Linear and ReLU classes which makes up the MLP
+- Training using full-batch gradient descent and mini-batch stochastic gradient descent
+
+The dataset is the same as the one used for logistic regression and was processed and cleaned in the same way. I trained my MLP for the same classification task.
+
+I learned:
+- Why ReLU is used as an activation function as well as the drawbacks of other activation functions such as tanh and softmax in terms of optimisation (vanishing grads)
+- The affect that activation functions have on the model such as the loss function not being convex and the ability to now learn non-linear relationships
+- The importance of parameter initialisation and the Xavier intialisation
+- How SGD works and why it intuitively may improve optimisation in the case of non convex functions
