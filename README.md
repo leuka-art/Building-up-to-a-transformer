@@ -66,3 +66,12 @@ I learned:
 - The affect that activation functions have on the model such as the loss function not being convex and the ability to now learn non-linear relationships
 - The importance of parameter initialisation and the Xavier intialisation
 - How SGD works and why it intuitively may improve optimisation in the case of non convex functions
+
+Micrograd:
+
+I implemented micrograd, a scalar version of autograd, in order to understand how the autograd I used in the MLP works. Using Karpathy's micrograd YouTube video to aid my understanding, I built the micrograd.
+
+I learned:
+- Why autograd works in terms of forward and backward passes in combination with the chain rule
+- Visualising the computation as a tree
+- Understanding the topological sort from a depth first search implementation and why its used here
