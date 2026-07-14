@@ -1,5 +1,6 @@
 import torch
-from Model import Linear,ReLU,Sequential
+from Model import Linear,Sequential
+from Activation import ReLU
 from Loss import cross_entropy_loss, mean_squared_error
 
 def create_batches(data,truev,batch_size):
