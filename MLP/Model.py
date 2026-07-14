@@ -11,18 +11,6 @@ class Linear:
     def parameters(self):
         return [self.weights,self.bias]
 
-class ReLU:
-    def forward(self,x):
-        return torch.relu(x)
-    def parameters(self):
-        return []
-    
-class Tanh:
-    def forward(self,x):
-        return torch.tanh(x)
-    def parameters(self):
-        return []
-
 class Sequential:
     def __init__(self,layers):
         self.layers=layers
