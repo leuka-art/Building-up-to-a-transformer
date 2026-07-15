@@ -6,7 +6,7 @@ class Layernorm:
         self.gamma=torch.randn(1,nout,dtype=torch.float32,requires_grad=True)
         self.beta=torch.zeros(1,nout,dtype=torch.float32,requires_grad=True)
     def forward(self,linOut):
-        #Normalisation then affine transform
+        #Standardisation then affine transform
         mean=torch.mean(linOut,dim=1,keepdim=True)
         sd=torch.std(linOut,dim=1,keepdim=True,unbiased=False)
         normalised=(linOut-mean)/sd
