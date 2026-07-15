@@ -3,7 +3,7 @@ import torch
 class Layernorm:
     def __init__(self,nout):
         #Affine transformation parameters to be learned
-        self.gamma=torch.randn(1,nout,dtype=torch.float32,requires_grad=True)
+        self.gamma=torch.ones(1,nout,dtype=torch.float32,requires_grad=True)
         self.beta=torch.zeros(1,nout,dtype=torch.float32,requires_grad=True)
     def forward(self,linOut):
         #Standardisation then affine transform
