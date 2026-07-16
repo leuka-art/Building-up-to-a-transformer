@@ -49,9 +49,19 @@ I learned:
 - The role of numerical stability in softmax implementations
 - Differences between linear regression and logistic regression optimisation
 
+Autograd:
+
+I implemented micrograd, a scalar version of autograd, in order to understand how the autograd I used in the MLP works. Using Karpathy's micrograd YouTube video to aid my understanding, I first built the micrograd then built it up into a basic Autograd for tensors.
+
+I learned:
+- Why autograd works in terms of forward and backward passes in combination with the chain rule
+- Visualising the computation as a tree
+- Understanding the topological sort from a depth first search implementation and why its used here
+- How to handle broadcasting as well as the grads of broadcasted tensors
+
 Multi Layer Perceptron (MLP):
 
-I implemented an MLP, building the architecture from scratch. I used PyTorch tensors for convenience of autograd but the fundamnetal structure was coded by myself.
+I implemented an MLP, building the architecture from scratch. I used my Autograd engine for backpropagation.
 
 I implemented:
 - Linear class which has its parameters
@@ -67,11 +77,4 @@ I learned:
 - The importance of parameter initialisation and the Xavier intialisation
 - How SGD works and why it intuitively may improve optimisation in the case of non convex functions
 
-Micrograd:
 
-I implemented micrograd, a scalar version of autograd, in order to understand how the autograd I used in the MLP works. Using Karpathy's micrograd YouTube video to aid my understanding, I built the micrograd.
-
-I learned:
-- Why autograd works in terms of forward and backward passes in combination with the chain rule
-- Visualising the computation as a tree
-- Understanding the topological sort from a depth first search implementation and why its used here
