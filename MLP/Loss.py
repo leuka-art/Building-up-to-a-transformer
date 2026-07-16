@@ -1,7 +1,7 @@
-import torch
+from Autograd import Tensor
+import numpy as np
 
 def cross_entropy_loss(prediction,true_value):
-    return torch.mean(torch.sum(-true_value*torch.log_softmax(prediction,axis=1),axis=1))
-
+    return (-true_value*prediction.log_softmax(axis=1)).sum(axis=1).mean()
 def mean_squared_error(prediction,true_value):
-    return torch.mean((true_value-prediction)**2)
+    return ((true_value-prediction)**2).mean()

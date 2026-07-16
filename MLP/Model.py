@@ -1,12 +1,11 @@
-import torch
+from Autograd import Tensor
+import numpy as np
 
 class Linear:
     def __init__(self,nin,nout):
         #Linear layer weights and biases
-        self.weights = torch.randn(nin,nout) * (2/(nin+nout))**0.5
-        self.weights.requires_grad_()
-        self.bias = torch.zeros(nout)
-        self.bias.requires_grad_()
+        self.weights=Tensor(np.random.randn(nin,nout)*(2/(nin+nout))**0.5,requires_grad=True)
+        self.bias=Tensor(np.zeros(nout),requires_grad=True)
     def forward(self,x):
         #Forward propagation through linear layer
         return x@self.weights+self.bias

@@ -1,4 +1,6 @@
-import torch
+from Autograd import Tensor
+import numpy as np
+
 def classification_accuracy(prediction,truev):
-    prop=torch.mean(torch.argmax(prediction,axis=1)==torch.argmax(truev,axis=1),dtype=torch.float32)
+    prop=np.mean(np.argmax(prediction.data,axis=1)==np.argmax(truev.data,axis=1))
     return prop

@@ -1,13 +1,9 @@
-import torch
+from Autograd import Tensor
+import numpy as np
 
 class ReLU:
     def forward(self,x):
-        return torch.relu(x)
+        return x.ReLU()
     def parameters(self):
         return []
     
-class Tanh:
-    def forward(self,x):
-        return torch.tanh(x)
-    def parameters(self):
-        return []
