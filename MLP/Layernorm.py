@@ -8,8 +8,8 @@ class Layernorm:
         self.beta=Tensor(np.zeros((1,nout)),requires_grad=True)
     def forward(self,linOut):
         #Standardisation then affine transform
-        mean=linOut.mean(axis=1,keepdims=True)
-        var=((linOut-mean)**2).mean(axis=1,keepdims=True)
+        mean=linOut.mean(axis=-1,keepdims=True)
+        var=((linOut-mean)**2).mean(axis=-1,keepdims=True)
         sd=var**(0.5)
         normalised=(linOut-mean)/sd
         return normalised*self.gamma+self.beta
