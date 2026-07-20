@@ -3,6 +3,7 @@ import numpy as np
 from Model import Linear,Sequential
 from Activation import ReLU
 from Loss import cross_entropy_loss, mean_squared_error
+from Optimiser import SGD
 
 def create_batches(x,truev,batch_size):
     #Function to create a batch with batch_size samples for SGD, this is a generator
@@ -15,11 +16,10 @@ def create_batches(x,truev,batch_size):
         truev_batch=truev[i:i+batch_size]
         yield data_batch, truev_batch
 
-def training(data,model,true_value,loss_fn,iterations,learning_rate,batch_size):
+def training(data,model,true_value,loss_fn,iterations,optimiser,batch_size):
     """data is the input data matrix, true_value is the true output values, loss_fn is the loss function used,
     iterations is the number of epochs done for GD, learning_rate and batch_size are as standard for SGD"""
     losses=[]
-    params=model.parameters()
     for epoch in range(iterations):
         total_samples=0
         total_loss=0
@@ -28,12 +28,11 @@ def training(data,model,true_value,loss_fn,iterations,learning_rate,batch_size):
             prediction=model.forward_prop(Tensor(x_batch))
             loss=loss_fn(prediction, Tensor(y_batch))
             loss.backward()
-            #Updating parameters
-            for param in params:
-                param.data-=learning_rate*param.grad
-                param.zero_grad()
+            optimiser.step()
+            optimiser.zero_grad()
             #Batch size weighted loss as the last sample may be smaller than the rest
             total_loss+=loss.data*x_batch.shape[0]
             total_samples+=x_batch.shape[0]
         losses.append(total_loss/total_samples)
     return losses
+
