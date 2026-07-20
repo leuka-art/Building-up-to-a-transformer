@@ -96,7 +96,7 @@ class Adam:
     def step(self):
         for i,p in enumerate(self.parameters):
             self.v[i]=self.beta1*self.v[i]+(1-self.beta1)*p.grad
-            self.s[i]=self.beta2*self.s[i]+(1-self.beta2)*p.grad
+            self.s[i]=self.beta2*self.s[i]+(1-self.beta2)*p.grad**2
             vnorm=self.v[i]/(1-self.beta1**self.t)
             snorm=self.s[i]/(1-self.beta2**self.t)
             gnorm=self.eta*vnorm/(np.sqrt(snorm)+self.epsilon)
