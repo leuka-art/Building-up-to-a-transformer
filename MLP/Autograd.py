@@ -2,7 +2,7 @@ import numpy as np
 
 class Tensor:
     def __init__(self,data,prev=(),requires_grad=False):
-        self.data=np.asarray(data, dtype=np.float64)
+        self.data=np.asarray(data)
         self.parent=tuple(prev)
         self.requires_grad=requires_grad
         self.grad=np.zeros_like(self.data) if requires_grad else None

@@ -14,7 +14,7 @@ def create_batches(x,truev,batch_size):
     for i in range(0, nosamples, batch_size):
         data_batch=x[i:i+batch_size]
         truev_batch=truev[i:i+batch_size]
-        yield data_batch, truev_batch
+        yield Tensor(data_batch), Tensor(truev_batch)
 
 def training(data,model,true_value,loss_fn,iterations,optimiser,batch_size):
     """data is the input data matrix, true_value is the true output values, loss_fn is the loss function used,
@@ -25,8 +25,8 @@ def training(data,model,true_value,loss_fn,iterations,optimiser,batch_size):
         total_loss=0
         #Looping through the batch created for SGD
         for x_batch, y_batch in create_batches(data, true_value, batch_size):
-            prediction=model.forward_prop(Tensor(x_batch))
-            loss=loss_fn(prediction, Tensor(y_batch))
+            prediction=model.forward_prop(x_batch)
+            loss=loss_fn(prediction, y_batch)
             loss.backward()
             optimiser.step()
             optimiser.zero_grad()

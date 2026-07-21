@@ -50,6 +50,6 @@ class Embedding:
     def __init__(self,vocab_size,dim):
         self.lookup=Tensor(np.random.randn(vocab_size,dim),requires_grad=True)
     def forward(self,x):
-        return self.lookup[x]
+        return self.lookup[x.data.astype(int)]
     def parameters(self):
         return [self.lookup]
