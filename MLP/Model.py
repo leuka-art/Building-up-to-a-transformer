@@ -53,3 +53,9 @@ class Embedding:
         return self.lookup[x.data.astype(int)]
     def parameters(self):
         return [self.lookup]
+    
+class Flatten:
+    def forward(self,x):
+        return x.reshape((x.shape[0],-1))
+    def parameters(self):
+        return []
