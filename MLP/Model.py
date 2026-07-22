@@ -59,3 +59,13 @@ class Flatten:
         return x.reshape((x.shape[0],-1))
     def parameters(self):
         return []
+    
+class EncodingPostionalEmbedding:
+    def __init__(self,vocab_size,block_size,dim):
+        self.block_size=block_size
+        self.encode=Embedding(vocab_size,dim)
+        self.position=Embedding(block_size,dim)
+    def forward(self,x):
+        return self.encode.forward(x)+self.position.forward(Tensor(np.arange(self.block_size)))
+    def parameters(self):
+        return [self.encode.lookup,self.position.lookup]

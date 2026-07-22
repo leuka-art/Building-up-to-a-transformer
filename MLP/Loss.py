@@ -19,7 +19,7 @@ def cross_entropy_loss(prediction, true_value):
         if prediction.requires_grad:
             grad=softmax.copy()
             grad[np.arange(batch_size),labels]-=1
-            prediction.grad+=(grad / batch_size)*out.grad
+            prediction.grad+=(grad/batch_size)*out.grad
     out._backward=_backward
     return out
 
