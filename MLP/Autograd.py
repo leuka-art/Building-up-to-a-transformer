@@ -186,11 +186,13 @@ class Tensor:
                 grad=out.grad
                 if axis is None:
                     mask=(self.data==np.max(self.data))
+                    mask=mask/mask.sum()
                     self.grad+=mask*grad
                 else:
                     if not keepdims:
                         grad=np.expand_dims(grad,axis)
                     mask=(self.data==np.max(self.data,axis=axis,keepdims=True))
+                    mask=mask/mask.sum(axis=axis,keepdims=True)
                     self.grad+=mask*grad
         out._backward=_backward
         return out
@@ -206,9 +208,18 @@ class Tensor:
         return other@self
     
     def log_softmax(self,axis=-1):
-        shifted=self-self.max(axis=axis,keepdims=True)
-        return shifted-shifted.exp().sum(axis=axis,keepdims=True).log()
-    
+        shifted=self.data-np.max(self.data,axis=axis,keepdims=True)
+        log_sum_exp=np.log(np.sum(np.exp(shifted),axis=axis,keepdims=True))
+        out_data=shifted-log_sum_exp
+        out=Tensor(out_data,(self,),requires_grad=self.requires_grad)
+        def _backward():
+            if self.requires_grad:
+                softmax=np.exp(out_data)
+                grad_sum=out.grad.sum(axis=axis, keepdims=True)
+                self.grad+=out.grad-softmax*grad_sum
+        out._backward=_backward
+        return out
+
     def __getitem__(self,index):
         out=Tensor(self.data[index],(self,),requires_grad=self.requires_grad)
         def _backward():

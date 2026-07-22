@@ -83,9 +83,9 @@ class Adadelta:
             p.zero_grad()
 
 class Adam:
-    def __init__(self,params,eta=0.001,beta1=0.9,beta2=0.999,epsilon=0.000001):
+    def __init__(self,params,lr=0.001,beta1=0.9,beta2=0.999,epsilon=0.000001):
         self.parameters=params
-        self.eta=eta
+        self.lr=lr
         self.beta1=beta1
         self.beta2=beta2
         self.v=[np.zeros_like(p.data) for p in self.parameters]
@@ -99,9 +99,9 @@ class Adam:
             self.s[i]=self.beta2*self.s[i]+(1-self.beta2)*p.grad**2
             vnorm=self.v[i]/(1-self.beta1**self.t)
             snorm=self.s[i]/(1-self.beta2**self.t)
-            gnorm=self.eta*vnorm/(np.sqrt(snorm)+self.epsilon)
+            gnorm=self.lr*vnorm/(np.sqrt(snorm)+self.epsilon)
             p.data-=gnorm
-            self.t+=1
+        self.t+=1
 
     def zero_grad(self):
         for p in self.parameters:

@@ -40,7 +40,7 @@ class Layernorm:
         #Standardisation then affine transform
         mean=linOut.mean(axis=-1,keepdims=True)
         var=((linOut-mean)**2).mean(axis=-1,keepdims=True)
-        sd=var**(0.5)
+        sd=(var+1e-5)**(0.5)
         normalised=(linOut-mean)/sd
         return normalised*self.gamma+self.beta
     def parameters(self):
@@ -48,7 +48,7 @@ class Layernorm:
 
 class Embedding:
     def __init__(self,vocab_size,dim):
-        self.lookup=Tensor(np.random.randn(vocab_size,dim),requires_grad=True)
+        self.lookup=Tensor(np.random.randn(vocab_size,dim)*0.02,requires_grad=True)
     def forward(self,x):
         return self.lookup[x.data.astype(int)]
     def parameters(self):
