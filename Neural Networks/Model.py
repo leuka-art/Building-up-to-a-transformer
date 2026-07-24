@@ -2,16 +2,25 @@ from Autograd import Tensor
 import numpy as np
 
 class Linear:
-    def __init__(self,nin,nout):
+    def __init__(self,nin,nout,bias=True):
         #Linear layer weights and biases
         self.weights=Tensor(np.random.randn(nin,nout)*(2/(nin+nout))**0.5,requires_grad=True)
-        self.bias=Tensor(np.zeros(nout),requires_grad=True)
+        if bias:
+            self.bias=Tensor(np.zeros(nout),requires_grad=True)
+        else:
+            self.bias=None
     def forward(self,x):
         #Forward propagation through linear layer
-        return x@self.weights+self.bias
+        if self.bias:
+            return x@self.weights+self.bias
+        else:
+            return x@self.weights
     def parameters(self):
         #Return the parameters of the linear layer
-        return [self.weights,self.bias]
+        if self.bias:
+            return [self.weights,self.bias]
+        else:
+            return [self.weights]
 
 class Sequential:
     def __init__(self,layers):

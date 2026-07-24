@@ -196,11 +196,18 @@ class Tensor:
                     self.grad+=mask*grad
         out._backward=_backward
         return out
-    
+
     def softmax(self,axis=-1):
-        shifted=self-self.max(axis=axis,keepdims=True)
-        exp=shifted.exp()
-        return exp/exp.sum(axis=axis,keepdims=True)
+        maxval=np.max(self.data,axis=axis,keepdims=True)
+        shifted=self.data-maxval
+        exp=np.exp(shifted)
+        out=Tensor(exp/np.sum(exp,axis=axis,keepdims=True),(self,),requires_grad=self.requires_grad)
+        def _backward():
+            if self.requires_grad:
+                dot=np.sum(out.grad*out.data,axis=axis,keepdims=True)
+                self.grad+=out.data*(out.grad-dot)
+        out._backward=_backward
+        return out
     
     def __rmatmul__(self,other):
         if not isinstance(other,Tensor):
