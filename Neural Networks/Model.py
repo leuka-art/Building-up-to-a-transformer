@@ -1,7 +1,21 @@
 from Autograd import Tensor
 import numpy as np
 
-class Linear:
+class Module:
+    def parameters(self):
+        params=[]
+        for value in self.__dict__.values():
+            if isinstance(value, Tensor):
+                params.append(value)
+            elif isinstance(value, Module):
+                params+=value.parameters()
+            elif isinstance(value, list):
+                for item in value:
+                    if isinstance(item, Module):
+                        params+=item.parameters()
+        return params
+
+class Linear(Module):
     def __init__(self,nin,nout,bias=True):
         #Linear layer weights and biases
         self.weights=Tensor(np.random.randn(nin,nout)*(2/(nin+nout))**0.5,requires_grad=True)
@@ -15,14 +29,8 @@ class Linear:
             return x@self.weights+self.bias
         else:
             return x@self.weights
-    def parameters(self):
-        #Return the parameters of the linear layer
-        if self.bias:
-            return [self.weights,self.bias]
-        else:
-            return [self.weights]
 
-class Sequential:
+class Sequential(Module):
     def __init__(self,layers):
         #List of layers in the model
         self.layers=layers
@@ -32,15 +40,8 @@ class Sequential:
         for layer in self.layers:
             y=layer.forward(y)
         return y
-    def parameters(self):
-        #Returns all parameters in the model starting from the first layer sequentially to the last
-        mylist=[]
-        for layer in self.layers:
-            p=layer.parameters()
-            mylist.extend(p)
-        return mylist
     
-class Layernorm:
+class Layernorm(Module):
     def __init__(self,nout):
         #Affine transformation parameters to be learned
         self.gamma=Tensor(np.ones((1,nout)),requires_grad=True)
@@ -52,29 +53,13 @@ class Layernorm:
         sd=(var+1e-5)**(0.5)
         normalised=(linOut-mean)/sd
         return normalised*self.gamma+self.beta
-    def parameters(self):
-        return [self.gamma,self.beta]
 
-class Embedding:
+class Embedding(Module):
     def __init__(self,vocab_size,dim):
         self.lookup=Tensor(np.random.randn(vocab_size,dim)*0.02,requires_grad=True)
     def forward(self,x):
         return self.lookup[x.data.astype(int)]
-    def parameters(self):
-        return [self.lookup]
     
-class Flatten:
+class Flatten(Module):
     def forward(self,x):
         return x.reshape((x.shape[0],-1))
-    def parameters(self):
-        return []
-    
-class EncodingPostionalEmbedding:
-    def __init__(self,vocab_size,block_size,dim):
-        self.block_size=block_size
-        self.encode=Embedding(vocab_size,dim)
-        self.position=Embedding(block_size,dim)
-    def forward(self,x):
-        return self.encode.forward(x)+self.position.forward(Tensor(np.arange(self.block_size)))
-    def parameters(self):
-        return [self.encode.lookup,self.position.lookup]

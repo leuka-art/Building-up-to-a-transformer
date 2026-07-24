@@ -16,7 +16,7 @@ def training_data_processing():
     price_range=np.array((training_data[["p0","p1","p2","p3"]].values))
 
     #The indices of the nonbinary columns
-    nonbinaryindex=np.array([ 0,  2,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16])
+    nonbinaryindex=np.array([0,2,6,7,8,9,10,11,12,13,14,15,16])
 
     #Creates a tensor from the pandas data frame of the input data, hence excluding price range and the price classes
     normalisedfeatures=(np.array(training_data.drop(["p0","p1","p2","p3","price_range"],axis=1)))
@@ -44,7 +44,7 @@ def testing_data_processing(columnmean,columnstd):
     test1data['p3']=(test1data['price_range']==3).astype(int)
 
     #The indices of the nonbinary columns
-    nonbinaryindex=np.array([ 0,  2,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16])
+    nonbinaryindex=np.array([0,2,6,7,8,9,10,11,12,13,14,15,16])
 
     #Creates a tensor from the pandas data frame of the input data
     normalised=np.array((test1data.drop(["p0","p1","p2","p3","price_range"],axis=1)))
