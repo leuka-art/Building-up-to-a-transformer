@@ -9,10 +9,10 @@ def cross_entropy_loss(prediction, true_value):
     x=prediction.data
     batch_size=x.shape[0]
     labels=true_value.data.astype(int)
-    shifted=x-np.max(x,axis=1,keepdims=True)
+    shifted=x-np.max(x,axis=-1,keepdims=True)
     exp_shifted=np.exp(shifted)
-    softmax=exp_shifted/exp_shifted.sum(axis=1,keepdims=True)
-    log_sum_exp=np.log(exp_shifted.sum(axis=1))
+    softmax=exp_shifted/exp_shifted.sum(axis=-1,keepdims=True)
+    log_sum_exp=np.log(exp_shifted.sum(axis=-1))
     losses=-shifted[np.arange(batch_size),labels]+log_sum_exp
     out=Tensor(losses.mean(),(prediction,),requires_grad=prediction.requires_grad)
     def _backward():
