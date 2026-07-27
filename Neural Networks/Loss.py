@@ -6,9 +6,10 @@ def cross_entropy_one_hot(prediction, true_value):
     return (-true_value*log_probs).sum(axis=1).mean()
 
 def cross_entropy_loss(prediction, true_value):
+    prediction=prediction.reshape((-1,prediction.shape[-1]))
     x=prediction.data
     batch_size=x.shape[0]
-    labels=true_value.data.astype(int)
+    labels=true_value.reshape((-1,)).data.astype(int)
     shifted=x-np.max(x,axis=-1,keepdims=True)
     exp_shifted=np.exp(shifted)
     softmax=exp_shifted/exp_shifted.sum(axis=-1,keepdims=True)
