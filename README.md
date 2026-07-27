@@ -77,4 +77,15 @@ I learned:
 - The importance of parameter initialisation and the Xavier intialisation
 - How SGD works and why it intuitively may improve optimisation in the case of non convex functions
 
+Optimisers:
 
+I implemented a range of different optimisers and explored how they compare with each other on the image data set classification.
+
+I implemented:
+- Momentum, RMSProp, Adagrad, Adadelta and Adam using an optimiser class
+- The class stores the hyperparameters and parameters of the model and has methods to update and zero grads
+
+I learned:
+- The motivation and intuition behind adaptive optimisers (Adagrad, RMSProp and Adadelta) being able to change learning rate per parameter
+- The motivation and intuition behind momentum (accumulating previous grads)
+- How Adam is the combination of both
