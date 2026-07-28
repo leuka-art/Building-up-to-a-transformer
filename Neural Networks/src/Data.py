@@ -4,7 +4,7 @@ from Autograd import Tensor
 
 def training_data_processing():
     """Function which loads training data set as a data frame then processes data"""
-    training_data=pd.read_csv('phone_pricing_range_train.csv')
+    training_data=pd.read_csv('../data/phone_pricing_range_train.csv')
 
     #Adding a column for each price range class
     training_data["p0"] = (training_data["price_range"] == 0).astype(int) 
@@ -35,7 +35,7 @@ def training_data_processing():
 def testing_data_processing(columnmean,columnstd):
     """Function which loads training data set as a data frame then processes data, 
     inputs are the column mean and column population standard deviation for standardisation"""
-    test1data=pd.read_csv('test1.csv')
+    test1data=pd.read_csv('../data/test1.csv')
 
     #Adding a column for each price range class
     test1data['p0']=(test1data['price_range']==0).astype(int)

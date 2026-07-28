@@ -94,6 +94,9 @@ class Tensor:
             self.grad=grad
         for node in reversed(topo):
             node._backward()
+        for node in topo:
+            node.parent=()
+            node._backward=lambda: None
 
     def __rtruediv__(self,other):
         if not isinstance(other,Tensor):
