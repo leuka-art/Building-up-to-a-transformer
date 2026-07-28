@@ -1,7 +1,8 @@
 import numpy as np
 
 class Tensor:
-    def __init__(self,data,prev=(),requires_grad=False):
+    def __init__(self,data,prev=(),requires_grad=False,decay=False):
+        self.decay=decay
         self.data=np.asarray(data)
         self.parent=tuple(prev)
         self.requires_grad=requires_grad

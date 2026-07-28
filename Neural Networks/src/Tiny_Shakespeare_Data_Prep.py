@@ -1,7 +1,7 @@
 import numpy as np
 from Autograd import Tensor
 
-def data_read():
+def data_read(split):
     with open("../data/Tiny_Shakespeare.txt", "r", encoding="utf-8") as f:
         text = f.read()
 
@@ -13,7 +13,10 @@ def data_read():
 
     tokens=np.array([encode_dict[ch] for ch in text])
 
-    return vocab_size,encode_dict,decode_dict,tokens
+    n=int(len(tokens)*split)
+
+    return vocab_size,encode_dict,decode_dict,tokens[:n],tokens[n:]
+
 
 def generate_dataset(tokens,block_size):
     input=[]

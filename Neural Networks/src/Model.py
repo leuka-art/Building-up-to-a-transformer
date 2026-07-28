@@ -19,7 +19,7 @@ class Module:
 class Linear(Module):
     def __init__(self,nin,nout,bias=True):
         #Linear layer weights and biases
-        self.weights=Tensor(np.random.randn(nin,nout)*(2/(nin+nout))**0.5,requires_grad=True)
+        self.weights=Tensor(np.random.randn(nin,nout)*(2/(nin+nout))**0.5,requires_grad=True,decay=True)
         if bias:
             self.bias=Tensor(np.zeros(nout),requires_grad=True)
         else:
@@ -57,7 +57,7 @@ class Layernorm(Module):
 
 class Embedding(Module):
     def __init__(self,vocab_size,dim):
-        self.lookup=Tensor(np.random.randn(vocab_size,dim)*0.02,requires_grad=True)
+        self.lookup=Tensor(np.random.randn(vocab_size,dim)*0.02,requires_grad=True,decay=True)
     def forward(self,x):
         return self.lookup[x.data.astype(int)]
     
@@ -83,11 +83,11 @@ class MultiHeadAttention(Module):
         if mask:
             self.mask_matrix=mask=np.triu(np.ones((block_size,block_size)),k=1)
 
-        self.Wv=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True)
-        self.Wk=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True)
-        self.Wq=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True)
+        self.Wv=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True,decay=True)
+        self.Wk=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True,decay=True)
+        self.Wq=Tensor(np.random.randn(embedding_dim,self.head_dim*no_heads)*np.sqrt(1/(embedding_dim)),requires_grad=True,decay=True)
 
-        self.Wo=Tensor(np.random.randn(embedding_dim,embedding_dim)*np.sqrt(1/(embedding_dim)),requires_grad=True)
+        self.Wo=Tensor(np.random.randn(embedding_dim,embedding_dim)*np.sqrt(1/(embedding_dim)),requires_grad=True,decay=True)
 
     def forward(self,decoder_out,encoder_out):
         B,Td,E=decoder_out.shape

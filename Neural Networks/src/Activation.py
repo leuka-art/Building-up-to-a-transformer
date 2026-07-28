@@ -6,4 +6,3 @@ class ReLU:
         return x.ReLU()
     def parameters(self):
         return []
-    
