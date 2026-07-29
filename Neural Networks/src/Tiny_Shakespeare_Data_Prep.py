@@ -16,17 +16,3 @@ def data_read(split):
     n=int(len(tokens)*split)
 
     return vocab_size,encode_dict,decode_dict,tokens[:n],tokens[n:]
-
-
-def generate_dataset(tokens,block_size):
-    input=[]
-    output=[]
-
-    for i in range(len(tokens)-block_size):
-        input.append(tokens[i:i+block_size])
-        output.append(tokens[i+1:i+1+block_size])
-
-    input=Tensor(np.array(input),requires_grad=False)
-    output=Tensor(np.array(output),requires_grad=False)
-
-    return input,output
