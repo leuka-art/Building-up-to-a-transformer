@@ -88,7 +88,7 @@ Implemented:
 
 Adam achieved the best validation accuracy (89.0%) and lowest validation loss, followed closely by RMSProp and Adadelta; SGD converged slowest and generalised worst (81.3% accuracy).
 
-![Optimiser convergence comparison on Fashion-MNIST](./Optimiser_comparison.png)
+![Optimiser convergence comparison on Fashion-MNIST](Experimental%20results/Optimiser_comparison.png)
 
 I learned: 
 - The importance behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta)
@@ -116,7 +116,7 @@ To understand the importance of each architectural component, I ran a controlled
 | No layer normalisation    | 2.331      | 2.496    |
 | No residual connections   | 4.710      | 4.700    |
 
-![Training loss for the baseline transformer vs each ablated model](./transformer_ablation.png)
+![Training loss for the baseline transformer vs each ablated model](Experimental%20results/Transformer_study.png)
 
 Removing residual connections yielded the worst performance, the model failed to learn, with loss similar to initialisation and generated text collapsing into noise. Positional embeddings and layer normalisation each caused a smaller but consistent drop in performance; without positional information, the model could only rely on local character patterns. Without layer norm, training was less stable and converged slower.
 
@@ -192,4 +192,4 @@ ZNzsIxEkivNm;yF??B mj-q, bjmmcIjimYc&fmJj
 
 The standard and no-positional-embeddings models both produce roughly English-shaped tokens with occasional real words and character-name-like capitalised fragments; without layer norm the output is noticeably less structured; without residual connections the model fails to learn any character-level structure at all, generating what is effectively noise.
 
-A full write-up of the methodology, gradient-checking results for the autograd engine, and complete experimental results is available in [`Transformer_From_Scratch_Report.pdf`](./Transformer_From_Scratch_Report.pdf).
+A full write-up of the methodology, gradient-checking results for the autograd engine, and complete experimental results is available in [`Transformer_From_Scratch_Report.pdf`](Report/Transformer_From_Scratch_Report.pdf).
