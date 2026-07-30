@@ -192,4 +192,4 @@ ZNzsIxEkivNm;yF??B mj-q, bjmmcIjimYc&fmJj
 
 The standard and no-positional-embeddings models both produce roughly English-shaped tokens with occasional real words and character-name-like capitalised fragments; without layer norm the output is noticeably less structured; without residual connections the model fails to learn any character-level structure at all, generating what is effectively noise.
 
-A full write-up of the methodology, gradient-checking results for the autograd engine, and complete experimental results is available in [`Transformer_From_Scratch_Report.pdf`](./Transformer_From_Scratch_Report.pdf).
+A full write-up of the methodology, gradient-checking results for the autograd engine, and complete experimental results is available in [`Transformer_From_Scratch_Report.pdf`](Report/Transformer_From_Scratch_Report.pdf).
