@@ -57,7 +57,7 @@ class Layernorm(Module):
 
 class Embedding(Module):
     def __init__(self,vocab_size,dim):
-        self.lookup=Tensor(np.random.randn(vocab_size,dim)*0.02,requires_grad=True,decay=True)
+        self.lookup=Tensor(np.random.randn(vocab_size,dim)*(2/(dim+dim))**0.5,requires_grad=True,decay=True)
     def forward(self,x):
         return self.lookup[x.data.astype(int)]
     

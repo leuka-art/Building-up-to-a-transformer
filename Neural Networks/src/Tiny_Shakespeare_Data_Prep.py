@@ -3,7 +3,7 @@ from Autograd import Tensor
 
 def data_read(split):
     with open("../data/Tiny_Shakespeare.txt", "r", encoding="utf-8") as f:
-        text = f.read()
+        text=f.read()
 
     chars=sorted(list(set(text)))
     vocab_size=len(chars)

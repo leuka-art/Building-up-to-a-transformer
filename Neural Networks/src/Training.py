@@ -16,7 +16,7 @@ def create_batches(x,truev,batch_size):
         truev_batch=truev[i:i+batch_size]
         yield Tensor(data_batch), Tensor(truev_batch)
 
-def training(data,model,true_value,loss_fn,epochs,optimiser,batch_size):
+def training(data,model,true_value,loss_fn,epochs,optimiser,batch_size,scheduler=None):
     """data is the input data matrix, true_value is the true output values, loss_fn is the loss function used,
     iterations is the number of epochs done for GD, learning_rate and batch_size are as standard for SGD"""
     losses=[]
@@ -30,10 +30,13 @@ def training(data,model,true_value,loss_fn,epochs,optimiser,batch_size):
             loss.backward()
             optimiser.step()
             optimiser.zero_grad()
+            if scheduler:
+                scheduler.step()
             #Batch size weighted loss as the last sample may be smaller than the rest
             total_loss+=loss.data*x_batch.shape[0]
             total_samples+=x_batch.shape[0]
         losses.append(total_loss/total_samples)
+        print("Epoch ",epoch+1, "loss: ",losses[-1])
     return losses
 
 def text_generate_batch(x,batch_size,block_size):
