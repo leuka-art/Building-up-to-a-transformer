@@ -1,6 +1,6 @@
-# Building up to a Transformer from Scratch in NumPy
+# Building a Transformer from Scratch in NumPy
 
-This project implements the foundations of modern deep learning from scratch using NumPy, including automatic differentiation, neural network layers, optimisation algorithms, attention mechanisms and a transformer.
+This project implements the foundations of modern deep learning from scratch using NumPy, including an automatic differentiation engine, neural network layers, optimisation algorithms, attention mechanisms and a transformer.
 
 This repository documents my progression from classical machine learning to deep learning by implementing models from scratch in NumPy, starting with linear regression and building up to a transformer language model, complete with an automatic differentiation engine written from first principles.
 
