@@ -80,7 +80,7 @@ Implemented multi-head self-attention and a character-level transformer language
 Implemented:
 - Single-head and multi-head self-attention with causal masking
 - Positional + token embeddings, layer normalisation, residual connections
-- A full transformer block (attention → projection → FFN → layer norm) and stacked transformer model
+- A full transformer block (attention, layer norm and FFN) and a stacked transformer model
 - A transformer-specific training loop that samples context windows while preserving token order
 
 ### Ablation study
