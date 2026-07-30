@@ -88,7 +88,7 @@ Implemented:
 
 Adam achieved the best validation accuracy (89.0%) and lowest validation loss, followed closely by RMSProp and Adadelta; SGD converged slowest and generalised worst (81.3% accuracy).
 
-![Optimiser convergence comparison on Fashion-MNIST](/Experimental_results/Optimiser_comparison.png)
+![Optimiser convergence comparison on Fashion-MNIST](./Experimental_results/Optimiser_comparison.png)
 
 I learned: 
 - The importance behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta)
