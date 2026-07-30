@@ -1,11 +1,10 @@
-# Byte-compiled / cache
+# macOS
+.DS_Store
+
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
-
-# OS files
-.DS_Store
-Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
@@ -15,6 +14,9 @@ Thumbs.db
 venv/
 env/
 
-# Editor
+# Editors
 .vscode/
 .idea/
+
+# Windows
+Thumbs.db
