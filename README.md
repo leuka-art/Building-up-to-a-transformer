@@ -2,7 +2,7 @@
 
 This project implements the foundations of modern deep learning from scratch using NumPy, including automatic differentiation, neural network layers, optimisation algorithms, attention mechanisms and a transformer.
 
-This repository documents my progression from classical machine learning to deep learning by implementing models from scratch in NumPy — starting with linear regression and building up to a transformer language model, complete with an automatic differentiation engine written from first principles.
+This repository documents my progression from classical machine learning to deep learning by implementing models from scratch in NumPy, starting with linear regression and building up to a transformer language model, complete with an automatic differentiation engine written from first principles.
 
 ## Contents
 
@@ -91,23 +91,23 @@ Adam achieved the best validation accuracy (89.0%) and lowest validation loss, f
 ![Optimiser convergence comparison on Fashion-MNIST](./Optimiser_comparison.png)
 
 I learned: 
-- The intuition behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta)
-- Why momentum smooths noisy gradients
+- The importance behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta)
+- Why momentum reduces oscillations
 - How Adam combines both.
 
 ## Transformer
 
-Implemented multi-head self-attention and a character-level transformer language model from scratch, trained on Tiny Shakespeare, using the same autograd engine as the rest of the project.
+Implemented multi-head self attention and a character-level transformer language model from scratch, trained on Tiny Shakespeare, using the same autograd engine as the rest of the project.
 
 Implemented:
-- Single-head and multi-head self-attention with causal masking
-- Positional + token embeddings, layer normalisation, residual connections
+- Single-head and multi-head self attention with causal masking
+- Positional + token embeddings, layer normalisation and residual connections
 - A full transformer block (attention, layer norm and FFN) and a stacked transformer model
 - A transformer-specific training loop that samples context windows while preserving token order
 
 ### Ablation study
 
-To understand *why* each architectural component matters rather than just that a transformer works, I ran a controlled ablation: removing positional embeddings, layer normalisation, and residual connections one at a time from an otherwise identical baseline (1 block, 4 heads, embedding dim 64, context length 64), and comparing training/validation loss and generated text.
+To understand the importance of each architectural component, I ran a controlled ablation study: removing positional embeddings, layer normalisation, and residual connections one at a time from an otherwise identical baseline (1 block, 4 heads, embedding dim 64, context length 64), and comparing training/validation loss and generated text.
 
 | Model                     | Train Loss | Val Loss |
 |---------------------------|:----------:|:--------:|
@@ -118,7 +118,7 @@ To understand *why* each architectural component matters rather than just that a
 
 ![Training loss for the baseline transformer vs each ablated model](./transformer_ablation.png)
 
-Removing residual connections was by far the most damaging change — the model essentially failed to learn, with loss barely moving from initialisation and generated text collapsing into noise. Positional embeddings and layer normalisation each caused a smaller but consistent drop in performance: without positional information the model could only rely on local character patterns, and without layer norm training was noticeably less stable and slower to converge.
+Removing residual connections yielded the worst performance, the model failed to learn, with loss similar to initialisation and generated text collapsing into noise. Positional embeddings and layer normalisation each caused a smaller but consistent drop in performance; without positional information, the model could only rely on local character patterns. Without layer norm, training was less stable and converged slower.
 
 I learned: 
 - Residual connections provide a direct path backward, reducing the affect vanishing gradients have on the training
