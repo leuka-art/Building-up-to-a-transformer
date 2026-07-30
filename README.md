@@ -1,6 +1,8 @@
-# Building up to a Transformer
+# Building a Transformer from Scratch in NumPy
 
-This repository documents my progression from classical machine learning to deep learning by implementing models from scratch in NumPy — starting with linear regression and building up to a transformer language model, complete with an automatic differentiation engine written from first principles.
+This project implements the foundations of modern deep learning from scratch using NumPy, including an automatic differentiation engine, neural network layers, optimisation algorithms, attention mechanisms and a transformer.
+
+This repository documents my progression from classical machine learning to deep learning by implementing models from scratch in NumPy, starting with linear regression and building up to a transformer language model, complete with an automatic differentiation engine written from first principles.
 
 ## Contents
 
@@ -25,7 +27,11 @@ Implemented:
 
 Dataset: Kaggle abalone dataset, predicting number of rings (a proxy for age). Features standardised via z-score normalisation.
 
-I learned: the geometric intuition behind the closed-form solution, how ridge regression reduces parameter variance, how multicollinearity causes ill-conditioning and unstable parameters, and how cross-validation helps with limited data.
+I learned: 
+- The geometric intuition behind the closed-form solution
+- How ridge regression reduces parameter variance
+- How multicollinearity causes ill-conditioning and unstable parameters
+- How cross-validation helps with limited data.
 
 ## Logistic Regression
 
@@ -38,13 +44,19 @@ Implemented:
 
 Dataset: Kaggle Phone Price Range dataset (four price classes), z-score normalised.
 
-I learned: the probabilistic interpretation of logistic regression, the derivation of the cross-entropy gradient, and why numerical stability matters in softmax.
+I learned: 
+- The probabilistic interpretation of logistic regression
+- The derivation of the cross-entropy gradient
+- Why numerical stability matters in softmax.
 
 ## Autograd
 
 Implemented a scalar autograd engine (micrograd, following Karpathy's approach) to understand the mechanics before extending it to a tensor-based engine used throughout the rest of the project.
 
-I learned: how forward/backward passes combine with the chain rule, how to represent computation as a graph and topologically sort it via DFS, and how to propagate gradients correctly through broadcasting.
+I learned: 
+- How forward/backward passes combine with the chain rule
+- How to represent computation as a graph and topologically sort it via DFS
+- How to propagate gradients correctly through broadcasting.
 
 ## Multi Layer Perceptron (MLP)
 
@@ -57,33 +69,45 @@ Implemented:
 
 Trained on the same phone price dataset as the logistic regression model.
 
-I learned: why ReLU is preferred over tanh/sigmoid (vanishing gradients), how non-linearities make the loss landscape non-convex, the importance of Xavier initialisation, and why SGD helps in non-convex optimisation.
+I learned: 
+- Why ReLU is preferred over tanh/sigmoid (vanishing gradients)
+- How non-linearities make the loss landscape non-convex
+- The importance of Xavier initialisation
+- Why SGD helps in non-convex optimisation.
 
 ## Optimisers
 
 Implemented and compared a range of gradient-based optimisers on an image classification task (Fashion-MNIST).
 
-Implemented: Momentum, Adagrad, RMSProp, Adadelta, and Adam, via a shared `Optimiser` class holding hyperparameters and parameter references, with `step` and `zero_grad` methods.
+Implemented: 
+- Momentum
+- Adagrad
+- RMSProp
+- Adadelta
+- Adam
 
 Adam achieved the best validation accuracy (89.0%) and lowest validation loss, followed closely by RMSProp and Adadelta; SGD converged slowest and generalised worst (81.3% accuracy).
 
 ![Optimiser convergence comparison on Fashion-MNIST](./Optimiser_comparison.png)
 
-I learned: the intuition behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta), why momentum smooths noisy gradients, and how Adam combines both.
+I learned: 
+- The importance behind adaptive per-parameter learning rates (Adagrad/RMSProp/Adadelta)
+- Why momentum reduces oscillations
+- How Adam combines both.
 
 ## Transformer
 
-Implemented multi-head self-attention and a character-level transformer language model from scratch, trained on Tiny Shakespeare, using the same autograd engine as the rest of the project.
+Implemented multi-head self attention and a character-level transformer language model from scratch, trained on Tiny Shakespeare, using the same autograd engine as the rest of the project.
 
 Implemented:
-- Single-head and multi-head self-attention with causal masking
-- Positional + token embeddings, layer normalisation, residual connections
-- A full transformer block (attention → projection → FFN → layer norm) and stacked transformer model
+- Single-head and multi-head self attention with causal masking
+- Positional + token embeddings, layer normalisation and residual connections
+- A full transformer block (attention, layer norm and FFN) and a stacked transformer model
 - A transformer-specific training loop that samples context windows while preserving token order
 
 ### Ablation study
 
-To understand *why* each architectural component matters rather than just that a transformer works, I ran a controlled ablation: removing positional embeddings, layer normalisation, and residual connections one at a time from an otherwise identical baseline (1 block, 4 heads, embedding dim 64, context length 64), and comparing training/validation loss and generated text.
+To understand the importance of each architectural component, I ran a controlled ablation study: removing positional embeddings, layer normalisation, and residual connections one at a time from an otherwise identical baseline (1 block, 4 heads, embedding dim 64, context length 64), and comparing training/validation loss and generated text.
 
 | Model                     | Train Loss | Val Loss |
 |---------------------------|:----------:|:--------:|
@@ -94,9 +118,12 @@ To understand *why* each architectural component matters rather than just that a
 
 ![Training loss for the baseline transformer vs each ablated model](./transformer_ablation.png)
 
-Removing residual connections was by far the most damaging change — the model essentially failed to learn, with loss barely moving from initialisation and generated text collapsing into noise. Positional embeddings and layer normalisation each caused a smaller but consistent drop in performance: without positional information the model could only rely on local character patterns, and without layer norm training was noticeably less stable and slower to converge.
+Removing residual connections yielded the worst performance, the model failed to learn, with loss similar to initialisation and generated text collapsing into noise. Positional embeddings and layer normalisation each caused a smaller but consistent drop in performance; without positional information, the model could only rely on local character patterns. Without layer norm, training was less stable and converged slower.
 
-I learned: residual connections are what make deep(er) transformer training tractable at all by giving gradients a direct path backward, layer normalisation primarily aids optimisation stability rather than model capacity, and self-attention has no inherent notion of token order — positional embeddings are what supply it.
+I learned: 
+- Residual connections provide a direct path backward, reducing the affect vanishing gradients have on the training
+- Layer normalisation primarily aids optimisation stability rather than model capacity
+- Self-attention has no inherent notion of token order/position, positional embeddings are what supply it.
 
 **Generated samples.** Each model was prompted with `"Juliet!"` and used to generate 200 characters. The degradation matches the loss table closely — the standard model produces recognisable word fragments and character names, while removing residual connections collapses generation into near-random symbols:
 
